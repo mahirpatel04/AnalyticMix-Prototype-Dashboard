@@ -1,45 +1,265 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      crossorigin="anonymous"
-    />
 
-    <title>{% block title %}Home{% endblock %}</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-          {% if user.is_authenticated %}
-          <a class="nav-item nav-link" id="home" href="/">Home</a>
-          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          {% else %}
-          <a class="nav-item nav-link" id="login" href="/login">Login</a>
-          <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-          {% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Discover AI/ML solutions by Analytic Mix. Harness Generative AI and LLM to innovate and optimize your business strategies.">
+    <meta name="keywords" content="AI, ML, Generative AI, LLM, Predictive Analytics, Data Engineering, Customer Segmentation">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Analytic Mix</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .navbar-brand img {
+            height: 50px;
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #888888;
+            font-size: 16px;
+            text-transform: capitalize;
+            padding: 8px 15px;
+        }
+        .navbar-nav .nav-item .nav-link.active, 
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #004c81;
+        }
+        .dropdown-menu {
+            border: none;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+        }
+        .dropdown-menu .dropdown-item {
+            color: #000000;
+            font-size: 14px;
+        }
+        .dropdown-menu .dropdown-item:hover {
+            background-color: transparent;
+            color: #FF7200;
+        }
+        .hero {
+            position: relative;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .hero-text {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .hero-text h1 {
+            font-size: 3em;
+            margin: 0;
+            text-transform: capitalize;
+            font-weight: bold;
+        }
+        .hero-text p {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2em;
+            }
+            .hero-text p {
+                font-size: 1.2em;
+            }
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        .section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            background: #f8f9fa;
+            margin: 20px 0;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .section-content {
+            flex: 1;
+            padding: 20px;
+            min-width: 300px;
+        }
+        .section-content h2 {
+            color: #FF9933;
+            font-size: 2em;
+        }
+        .section-content p {
+            color: #555555;
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+        .section-content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section-content ul li {
+            background: #ffffff;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section-content button {
+            background-color: #FF9933;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1em;
+            margin-top: 20px;
+        }
+        .section-content button:hover {
+            background-color: #CC6600;
+        }
+        .cta {
+            text-align: center;
+            margin: 40px 0;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 15px;
+        }
+        .cta button {
+            background-color: #FF9933;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .cta button:hover {
+            background-color: #CC6600;
+        }
+        .footer {
+            background-color: #004c81;
+            color: white;
+            padding: 40px 0;
+        }
+        .footer a {
+            color: #FF9933;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer h4 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .footer p {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+        .footer .btn {
+            background-color: #FF9933;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1em;
+        }
+        .footer .btn:hover {
+            background-color: #CC6600;
+        }
+        .footer .social-icons {
+            margin-top: 10px;
+        }
+        .footer .social-icons a {
+            color: #FF9933;
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+        .footer .social-icons a:hover {
+            color: #CC6600;
+        }
+        .title-wrap {
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .footer .copyright {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #CCCCCC;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Section -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="https://analyticmix.com/wp-content/uploads/2016/03/header1.png" alt="AnalyticMix Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              {% if not user.is_authenticated %}
+              <a class="nav-item nav-link" id="login" href="/login">Login</a>
+              <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+              {% else %}
+              <a class="nav-item nav-link" id="upload" href="/upload">Upload</a>
+              <a class="nav-item nav-link" id="analytics" href="/analytics">Analytics</a>
+              <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+              {% endif %}
+                </li>
+            </ul>
         </div>
-      </div>
-    </nav>
-    {% with messages = get_flashed_messages(with_categories=true) %}
+    </div>
+</nav>
+
+<!-- Flashing Messages Section -->
+{% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
       {% if category == 'error' %}
@@ -60,24 +280,23 @@
       {% endfor %}
     {% endif %}
     {% endwith %}
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-    </div>
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
 
-    <body>
+<div class="container">
+  {% block content %}
+  {% endblock %}
+</div>
+<!-- Footer Section -->
+<div class="footer">
+        <div class="copyright">
+            ©2024 Analytic Mix, Inc., a California-based company. All rights reserved.
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpsh-oh'},{'server':'p3plzcpnl505178'},{'dcenter':'p3'},{'cp_id':'9969903'},{'cp_cl':'8'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/traffic-assets/js/tccl.min.js'></script></html>
