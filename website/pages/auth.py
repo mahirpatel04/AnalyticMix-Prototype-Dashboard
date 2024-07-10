@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from ..database.models import User
 from werkzeug.security import generate_password_hash, check_password_hash 
-from . import db
+from .. import db
 from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
@@ -46,7 +46,7 @@ def sign_up():
         elif len(firstName) < 2:
             flash('First name must be greater than 1 character', category='error')
         elif password1 != password2:
-            flash('Passwords don\'t math.', category='error')
+            flash('Passwords don\'t match.', category='error')
         elif len(password1) < 7:
             flash('Password must be at least 7 characters', category='error')
         else:
