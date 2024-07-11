@@ -7,8 +7,9 @@ from ...models import CSV
 from ... import db
 
 analytics = Blueprint('analytics', __name__)
-
-@analytics.route('/')
+PATH = 'analytics/'
+@analytics.route('/analytics')
 @login_required
 def analytics_page():
-    return render_template('analytics.html', user=current_user)
+    path = PATH + 'analytics_page.html'
+    return render_template(path, user=current_user)

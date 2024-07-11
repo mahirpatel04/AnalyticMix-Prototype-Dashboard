@@ -5,9 +5,10 @@ from ... import db
 from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
-
+PATH = 'auth/'
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    path = PATH + 'login.html'
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -17,13 +18,13 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in succesfully', category='success')
                 login_user(user, remember=True)
-                return redirect(url_for('views.home'))
+                return redirect(url_for('main.index'))
             else:
                 flash('Incorrect information, try again', category='error')
         else:
             flash('Incorrect information, try again', category='error')
             
-    return render_template('login.html', user=current_user)
+    return render_template(path, user=current_user)
 
 @auth.route('/logout')
 @login_required
@@ -33,6 +34,7 @@ def logout():
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    path = PATH + 'signup.html'
     if request.method == 'POST':
         email = request.form.get('email')
         firstName = request.form.get('firstName')
@@ -55,8 +57,8 @@ def sign_up():
             db.session.commit()
             login_user(newUser, remember=True)
             flash('Account created!', category='success')
-            return redirect(url_for('views.home'))
+            return redirect(url_for('main.index'))
         
-    return render_template('signup.html', user=current_user)
+    return render_template(path, user=current_user)
 
 

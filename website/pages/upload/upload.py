@@ -7,7 +7,7 @@ from ...models import CSV
 from ... import db
 
 
-upload = Blueprint('views', __name__)
+upload = Blueprint('upload', __name__)
 
 ALLOWED_EXTENSIONS = set(['csv'])
 

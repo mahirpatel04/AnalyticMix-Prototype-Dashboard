@@ -12,18 +12,19 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
     
-    from .pages.analytics.analytics import analytics
-    from .pages.upload.upload import upload
-    from .pages.auth.auth import auth
+    from .pages import analytics, upload, auth
+    from .main.routes import main
     
-    app.register_blueprint(analytics, url_prefix='/')
-    app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(main)
+    app.register_blueprint(analytics)
+    app.register_blueprint(auth)
+    app.register_blueprint(upload)
     
     from .models import User, CSV
     create_database(app)
 
     login_manager = LoginManager()
-    login_manager.login_view = 'pages.auth.login'
+    login_manager.login_view = 'pages.auth.auth.login'
     login_manager.login_message = ''
     login_manager.init_app(app)
     
@@ -34,7 +35,6 @@ def create_app():
     return app
 
 def create_database(app):
-    if not path.exists('website/' + DB_NAME):
-        with app.app_context():
-            db.create_all()
-            print('Created Database!')
+    with app.app_context():
+        db.create_all()
+        print('Created Database!')
