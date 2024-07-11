@@ -3,25 +3,20 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from datetime import datetime
 from os import path
-from ..database.models import CSV
-from .. import db
-
-views = Blueprint('views', __name__)
-
-@views.route('/')
-def home():
-    return render_template('home.html', user=current_user)
+from ...models import CSV
+from ... import db
 
 
+upload = Blueprint('views', __name__)
 
 ALLOWED_EXTENSIONS = set(['csv'])
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@views.route('/upload', methods=['GET', 'POST'])
+@upload.route('/upload', methods=['GET', 'POST'])
 @login_required
-def upload():
+def upload_file():
     if request.method == 'POST':
         file = request.files['file']
         upload = CSV(fileName=file.filename, data=file.read(), userID = current_user.id)
@@ -30,9 +25,3 @@ def upload():
         return render_template('upload.html', user=current_user)
 
     return render_template('upload.html', user=current_user)
-
-
-@views.route('/analytics')
-@login_required
-def analytics():
-    return render_template('analytics.html', user=current_user)
