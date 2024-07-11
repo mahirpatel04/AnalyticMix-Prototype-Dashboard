@@ -3,6 +3,12 @@
 
 
 {% block content %}
+
+<div>
+    {{ fig | safe }}
+
+</div>
+
 <div class="container">
     {% for file in user.files %}
         <div class="row section">
