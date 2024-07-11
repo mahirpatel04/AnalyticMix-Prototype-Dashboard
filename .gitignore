@@ -1,8 +1,2 @@
 instance/
-website/__pycache__/
-website/database/__pycache__
-website/pages/__pycache__
-website/scripts/__pycache__
-website/static/__pycache__
-website/templates/__pycache__
-
+!**/__pycache__/
