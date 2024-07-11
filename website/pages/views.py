@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from datetime import datetime
-from ..scripts.csvprocessing import process_csv
 from os import path
 from ..database.models import CSV
 from .. import db
