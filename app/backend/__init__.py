@@ -8,20 +8,21 @@ DB_NAME = 'database.db'
 
 def create_app():
     app = Flask(__name__)
-    app.template_folder = "app/frontend/templates"
+    app.template_folder = "../frontend/templates"
+    app.static_folder = "../frontend/static"
     app.config['SECRET_KEY'] = 'awe9ipurhfadakcjvadfjhkasdfsdljfw0984520493235oiia8sdlakjsr'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
     
-    from .pages import analytics, upload, auth
-    from .main.routes import main
+    from .views.pages import analytics, upload, auth
+    from .views.main.routes import main
     
     app.register_blueprint(main)
     app.register_blueprint(analytics)
     app.register_blueprint(auth)
     app.register_blueprint(upload)
     
-    from ..models import User, CSV
+    from .models import User, CSV
     create_database(app)
 
     login_manager = LoginManager()

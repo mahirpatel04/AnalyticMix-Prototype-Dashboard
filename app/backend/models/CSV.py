@@ -1,4 +1,4 @@
-from ..website import db
+from backend import db
 
 class CSV(db.Model):
     id = db.Column(db.Integer, primary_key=True)
