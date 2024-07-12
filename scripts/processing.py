@@ -3,9 +3,11 @@ import plotly.express as px
 import statsmodels as sm
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+import os
 
+print(os.getcwd())
 
-df = pd.read_csv(r'C:\Users\Mahir\Documents\CS_PROJECTS\ANALYTICMIX\AM_Dashboard\scripts\testing.csv')
+df = pd.read_csv("scripts/testing.csv")
 start_date = '2021-09-12'
 end_date = '2022-02-20'
 df = df[(df['ordine_data'] >= start_date) & (df['ordine_data'] <= end_date)]

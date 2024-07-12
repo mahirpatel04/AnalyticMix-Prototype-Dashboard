@@ -5,6 +5,17 @@
 {% block content %}
 
 <div>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.file }}
+        {{ form.submit }}
+        {{ file }}
+    </form>
+</div>
+
+
+
+<div>
     {{ fig | safe }}
 
 </div>
