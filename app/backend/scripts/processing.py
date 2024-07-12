@@ -7,7 +7,7 @@ import os
 
 print(os.getcwd())
 
-df = pd.read_csv("scripts/testing.csv")
+df = pd.read_csv("app/backend/scripts/testing.csv")
 start_date = '2021-09-12'
 end_date = '2022-02-20'
 df = df[(df['ordine_data'] >= start_date) & (df['ordine_data'] <= end_date)]

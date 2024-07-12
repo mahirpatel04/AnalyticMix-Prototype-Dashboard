@@ -8,6 +8,7 @@ DB_NAME = 'database.db'
 
 def create_app():
     app = Flask(__name__)
+    app.template_folder = "app/frontend/templates"
     app.config['SECRET_KEY'] = 'awe9ipurhfadakcjvadfjhkasdfsdljfw0984520493235oiia8sdlakjsr'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
@@ -20,7 +21,7 @@ def create_app():
     app.register_blueprint(auth)
     app.register_blueprint(upload)
     
-    from .models import User, CSV
+    from ..models import User, CSV
     create_database(app)
 
     login_manager = LoginManager()

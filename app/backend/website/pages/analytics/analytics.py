@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
-from scripts.processing import fig
+from ....scripts.processing import fig
 from ..forms.forms import FilePicker
 
 
