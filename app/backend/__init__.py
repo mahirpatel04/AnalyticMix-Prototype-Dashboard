@@ -2,12 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-from flask_admin import Admin
 
 
 db = SQLAlchemy()
 DB_NAME = 'database.db'
-admin = Admin()
+
 def create_app():
     app = Flask(__name__)
     app.template_folder = "../frontend/templates"
@@ -16,14 +15,15 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     
     db.init_app(app)
-    # admin.init_app(app)
-    from .views import analytics, upload, auth
+    
+    from .views import analytics, upload, auth, AdminBP
     from .views.main.routes import main
     
     app.register_blueprint(main)
     app.register_blueprint(analytics)
     app.register_blueprint(auth)
     app.register_blueprint(upload)
+    app.register_blueprint(AdminBP)
     
     from .models import User, CSV
     create_database(app)

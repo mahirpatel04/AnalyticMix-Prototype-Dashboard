@@ -14,4 +14,4 @@ def analytics_page():
     path = PATH + 'analytics.html'
     file = None
     form = FilePicker()
-    return render_template(path, fig='hi', user=current_user, file=file, form=form)
+    return render_template(path, fig=fig, user=current_user, file=file, form=form)
