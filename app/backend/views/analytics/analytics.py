@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
-from ....scripts.processing import fig
+from ...scripts.processing import fig
 from ..forms.forms import FilePicker
 
 
@@ -14,4 +14,4 @@ def analytics_page():
     path = PATH + 'analytics.html'
     file = None
     form = FilePicker()
-    return render_template(path, fig=fig, user=current_user, file=file, form=form)
+    return render_template(path, fig='hi', user=current_user, file=file, form=form)

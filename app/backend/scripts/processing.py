@@ -32,18 +32,18 @@ X = df[inputs]
 y = df['revenue']
 X = sm.tools.add_constant(X)
 result = OLS(y, X).fit()
-print(result.summary())
+# print(result.summary())
 
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, shuffle = True, test_size = 0.2)
 
 model = LinearRegression()
 model.fit(X_train, y_train)
-
+'''
 print("Training Score:", model.score(X_train, y_train))
 print("Testing Score:", model.score(X_test, y_test))
 
-
+'''
 df['predictions'] = model.predict(X)
 
 fig = px.line(df, x='ordine_data', y = ['revenue', 'predictions'])
