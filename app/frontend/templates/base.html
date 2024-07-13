@@ -35,6 +35,10 @@
               {% if not user.is_authenticated %}
               <a class="nav-item nav-link" id="login" href="/login">Login</a>
               <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+              {% elif user.user_type == 'admin' %}
+              <a class="nav-item nav-link" id="upload" href="/upload">Generate Analytics</a>
+              <a class="nav-item nav-link" id="analytics" href="/404">PlaceHolder(404)</a>
+              <a class="nav-item nav-link" id="logout" href="/404">PlaceHolder(404)</a>
               {% else %}
               <a class="nav-item nav-link" id="upload" href="/upload">Upload</a>
               <a class="nav-item nav-link" id="analytics" href="/analytics">Analytics</a>

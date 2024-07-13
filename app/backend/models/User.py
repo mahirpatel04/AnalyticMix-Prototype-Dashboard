@@ -7,3 +7,17 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     firstName = db.Column(db.String(150))
     files = db.relationship('CSV')
+    
+    user_type = db.Column(db.String(50))
+    
+    __mapper_args__ = {
+        'polymorphic_on': user_type,
+        'polymorphic_identity': 'user'
+    }
+
+class AdminUser(User):
+    __tablename__ = None  # Avoid creating a separate table for Admin
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'admin'
+    }

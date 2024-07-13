@@ -4,14 +4,14 @@ from ...models import CSV
 from backend import db
 
 
-upload = Blueprint('upload', __name__)
+UploadBP = Blueprint('upload', __name__)
 PATH = 'upload/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@upload.route('/upload', methods=['GET', 'POST'])
+@UploadBP.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload_file():
     path = PATH + 'upload.html'

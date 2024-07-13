@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-
+from werkzeug.security import generate_password_hash
 
 db = SQLAlchemy()
 DB_NAME = 'database.db'
@@ -16,18 +16,22 @@ def create_app():
     
     db.init_app(app)
     
-    from .views import analytics, upload, auth, AdminBP
-    from .views.main.routes import main
+    from .views import AnalyticsBP, AuthBP, UploadBP, AdminBP, ErrorBP
+    from .views.main.routes import MainBP
     
-    app.register_blueprint(main)
-    app.register_blueprint(analytics)
-    app.register_blueprint(auth)
-    app.register_blueprint(upload)
+    app.register_blueprint(MainBP)
+    app.register_blueprint(AnalyticsBP)
+    app.register_blueprint(AuthBP)
+    app.register_blueprint(UploadBP)
     app.register_blueprint(AdminBP)
+    app.register_blueprint(ErrorBP)
     
-    from .models import User, CSV
+    from .models import User, CSV, AdminUser
     create_database(app)
-
+    with app.app_context():
+        admin = AdminUser(email='admin@gmail.com', password=generate_password_hash('password'), firstName='Admin')
+        #db.session.add(admin)
+        #db.session.commit()
     login_manager = LoginManager()
     login_manager.login_view = 'pages.auth.auth.login'
     login_manager.login_message = ''

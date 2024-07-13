@@ -5,12 +5,14 @@ from ... import db
 from flask_login import login_user, login_required, logout_user, current_user
 
 
-AdminBP = Blueprint('AdminBP', __name__)
+AdminBP = Blueprint('AdminBP', __name__, url_prefix='/admin')
 PATH = 'admin/'
 
 
-@AdminBP.route('/admin', methods=['GET', 'POST'])
+@AdminBP.route('/home')
 @login_required
 def admin():
-    path = PATH + 'admin.html'
+    path = PATH + 'admin_home.html'
     return render_template(path, user=current_user)
+
+

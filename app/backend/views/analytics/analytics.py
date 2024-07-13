@@ -4,11 +4,11 @@ from ...scripts.processing import fig
 from ..forms.forms import FilePicker
 
 
-analytics = Blueprint('analytics', __name__)
+AnalyticsBP = Blueprint('analytics', __name__)
 PATH = 'analytics/'
 
 
-@analytics.route('/analytics', methods=['GET', 'POST'])
+@AnalyticsBP.route('/analytics', methods=['GET', 'POST'])
 @login_required
 def analytics_page():
     path = PATH + 'analytics.html'
