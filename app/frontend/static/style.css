@@ -136,6 +136,17 @@ body {
     font-size: 1em;
     margin-top: 20px;
 }
+.btn-primary {
+    background-color: #FF9933;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1em;
+    margin-top: 20px;
+}
 .section-content button:hover {
     background-color: #CC6600;
 }

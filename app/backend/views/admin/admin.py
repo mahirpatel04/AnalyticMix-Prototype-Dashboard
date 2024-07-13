@@ -16,3 +16,8 @@ def admin():
     return render_template(path, user=current_user)
 
 
+@AdminBP.route('/generate_analytics', methods=['GET', 'POST'])
+@login_required
+def generate_analytics():
+    path = PATH + 'generate_analytics.html'
+    return render_template(path, user=current_user)

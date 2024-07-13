@@ -10,11 +10,15 @@
         <div class="col-md-6 section-content">
             <h2>Upload Files</h2>
             <ul>
-                <form action="/upload" method="POST" enctype="multipart/form-data">
-                    <label for="file">File:</label>
-                    <input type="file" id="file" name="file">
-                    <br>
-                    <button>Upload</button>
+                <form method="POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.file.label(class="form-label") }}
+                        {{ form.file(class="form-control") }}
+                    </div>
+                    <div>
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
                 </form>
             </ul>
         </div>
@@ -27,8 +31,6 @@
             {{file.fileName + ','}}
             {% endfor %}
         </u1>
-    </div>
-
     </div>
 </div>
 

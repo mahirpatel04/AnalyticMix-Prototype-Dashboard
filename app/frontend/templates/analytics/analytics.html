@@ -4,13 +4,30 @@
 
 {% block content %}
 
-<div>
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.file }}
-        {{ form.submit }}
-        {{ file }}
-    </form>
+<div class="container">
+    <div class="row section">
+        <div class="col-md-6 section-content">
+            <h2>Pick File To Analyze</h2>
+            <ul>
+                <form method="POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.file.label(class="form-label") }}
+                        {{ form.file(class="form-control") }}
+                    </div>
+                    <div>
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                    {% if file %}
+                    <br>
+                        <div class="alert alert-info">
+                            Selected File: {{ file }}
+                        </div>
+                    {% endif %}
+                </form>
+            </ul>
+        </div>
+    </div>
 </div>
 
 

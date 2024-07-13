@@ -9,7 +9,10 @@ PATH = 'auth/'
 @AuthBP.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.homepage'))
+        if current_user.user_type == 'admin':
+            pass
+        else:
+            return redirect(url_for('main.homepage'))
     
     path = PATH + 'login.html'
     if request.method == 'POST':
