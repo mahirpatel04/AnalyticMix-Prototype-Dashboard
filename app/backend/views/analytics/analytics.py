@@ -13,11 +13,11 @@ PATH = 'analytics/'
 def analytics_page():
     path = PATH + 'analytics.html'
     path = PATH + 'analytics.html'
-    form = DropDown()
+    form = DropDown(fileLabel='Pick a file to analyze', choices=['1', '1'])
     file = None
 
     if request.method == 'POST':
-        file = form.file.data
+        file = form.choice.data
         return render_template(path, fig=fig, user=current_user, file=file, form=form)
     
     return render_template(path, fig=fig, user=current_user, file=file, form=form)

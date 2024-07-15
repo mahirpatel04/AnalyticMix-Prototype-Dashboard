@@ -1,7 +1,7 @@
 from flask_login import current_user
 from flask import render_template, Blueprint
 
-ErrorBP = Blueprint('error', __name__)
+ErrorBP = Blueprint('ErrorBP', __name__)
 PATH = 'error/'
 @ErrorBP.app_errorhandler(404)
 def not_found(e):

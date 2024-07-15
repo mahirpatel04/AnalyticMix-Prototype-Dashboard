@@ -4,6 +4,7 @@ import statsmodels as sm
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import os
+from io import StringIO
 
 print(os.getcwd())
 
@@ -60,3 +61,6 @@ fig = fig.to_html(full_html=False)
 
 
 
+def process(fileData):
+    df = pd.read_csv(StringIO(fileData.decode('utf-8')))
+    return df.to_html()

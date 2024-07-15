@@ -1,5 +1,4 @@
 from backend import create_app
-from backend.views.error.error import not_found
 
 app = create_app()
 

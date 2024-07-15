@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% block title %}Analytics{% endblock %}
+
+{% block title %}Choose User{% endblock %}
 
 
 {% block content %}
-
 <div class="container">
     <div class="row section">
         <div class="col-md-6 section-content">
-            <h2>Pick File To Analyze</h2>
+            <h2>Choose User</h2>
             <ul>
                 <form method="POST" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
@@ -30,23 +30,5 @@
     </div>
 </div>
 
-
-
-<div>
-    {{ fig | safe }}
-
-</div>
-
-<div class="container">
-    {% for file in user.files %}
-        <div class="row section">
-            <div class="col-md-6 section-content">
-                <ul>
-                    {{file.data}}
-                </ul>
-            </div>
-        </div>
-    
-    {% endfor %}
-</div>
 {% endblock %}
+

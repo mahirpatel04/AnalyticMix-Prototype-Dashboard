@@ -4,15 +4,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from ... import db
 from flask_login import login_user, login_required, logout_user, current_user
 
-AuthBP = Blueprint('auth', __name__)
+AuthBP = Blueprint('AuthBP', __name__)
 PATH = 'auth/'
 @AuthBP.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         if current_user.user_type == 'admin':
-            pass
+            return redirect(url_for('AdminBP.homepage'))
         else:
-            return redirect(url_for('main.homepage'))
+            return redirect(url_for('MainBP.homepage'))
     
     path = PATH + 'login.html'
     if request.method == 'POST':
@@ -24,7 +24,7 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in succesfully', category='success')
                 login_user(user, remember=True)
-                return redirect(url_for('main.homepage'))
+                return redirect(url_for('MainBP.homepage'))
             else:
                 flash('Incorrect information, try again', category='error')
         else:
@@ -36,7 +36,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('AuthBP.login'))
 
 @AuthBP.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -63,7 +63,7 @@ def sign_up():
             db.session.commit()
             login_user(newUser, remember=True)
             flash('Account created!', category='success')
-            return redirect(url_for('main.homepage'))
+            return redirect(url_for('MainBP.homepage'))
         
     return render_template(path, user=current_user)
 
