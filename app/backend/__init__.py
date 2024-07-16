@@ -29,9 +29,10 @@ def create_app():
     from .models import User, CSV, AdminUser
     create_database(app)
     with app.app_context():
-        admin = AdminUser(email='admin@gmail.com', password=generate_password_hash('password'), firstName='Admin')
+        #admin = AdminUser(email='admin@gmail.com', password=generate_password_hash('password'), firstName='Admin')
         #db.session.add(admin)
         #db.session.commit()
+        pass
     login_manager = LoginManager()
     login_manager.login_view = 'pages.auth.auth.login'
     login_manager.login_message = ''
