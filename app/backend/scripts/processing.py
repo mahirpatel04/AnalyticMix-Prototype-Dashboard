@@ -80,7 +80,7 @@ def process(df, independents, dependents, models):
     
     df['predictions'] = model.predict(X)
 
-    fig = px.line(df, x=independents, y='revenue')
+    fig = px.line(df, x=independents, y=dependents[0])
 
     fig = fig.to_html(full_html=False)
 
