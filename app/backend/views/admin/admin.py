@@ -3,9 +3,9 @@ from ...models import User, CSV
 from werkzeug.security import generate_password_hash, check_password_hash 
 from ... import db
 from flask_login import login_user, login_required, logout_user, current_user
-from ..forms.forms import DropDown
-from ...scripts.processing import process
-
+from ..forms.forms import DropDown, CheckBox
+from ...scripts.processing import getColumns, process, convertBinaryFileToDataFrame
+from sklearn.linear_model import LinearRegression
 
 AdminBP = Blueprint('AdminBP', __name__, url_prefix='/admin')
 PATH = 'admin/'
@@ -33,7 +33,7 @@ def choose_user():
     general_users = User.query.filter_by(user_type='user').all()
     choices = [(user.id, user.firstName) for user in general_users]
     
-    form = DropDown(fileLabel='Choose User', choices=choices, placeholder='Pick One User:')
+    form = DropDown(choiceLabel='Choose User', choices=choices, placeholder='Pick One User:')
     
     return render_template(path, form=form, potentialUsers=general_users, user=current_user)
 
@@ -53,17 +53,29 @@ def choose_file():
             return redirect(url_for('AdminBP.analyze_file', userID=userID, file=selected_file_id))
         
     choices = [(file.id, file.fileName) for file in userObject.files]
-    form = DropDown(fileLabel='Choose File', choices=choices, placeholder=f'Files uploaded by {userObject.firstName}:')
+    form = DropDown(choiceLabel='Choose File', choices=choices, placeholder=f'Files uploaded by {userObject.firstName}:')
     
     return render_template(path, user=current_user, form=form)
 
 
-@AdminBP.route('/analyze_file', methods=['GET'])
+@AdminBP.route('/analyze_file', methods=['GET', 'POST'])
 @login_required
 def analyze_file():
-    path = PATH + 'analyze_file.html'
+    path = PATH + 'analyze_file.html'    
     userID = request.args.get('userID')
     fileID = request.args.get('file')
     fileObject = CSV.query.filter_by(userID=userID, id=fileID).first()
-    fileData = process(fileObject.data)
-    return render_template(path, user=current_user, file=fileData)
+    df = convertBinaryFileToDataFrame(fileObject.data)
+    if request.method == 'POST':
+        independentVars = request.form.getlist('choice1')
+        dependentVars = request.form.getlist('choice2')
+        models = request.form.getlist('choice3')
+        result = process(df, independentVars, dependentVars, models)
+        return result
+        
+    choices = getColumns(df)
+    models = [(LinearRegression, 'Linear')]
+    form = CheckBox(label1='Choose Independent Variables', label2='Choose Dependent Variables', label3='Choose Models to Run',
+                    choices1=choices, choices2=choices, choices3=models)
+
+    return render_template(path, user=current_user, form=form)
