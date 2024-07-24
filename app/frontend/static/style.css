@@ -225,3 +225,10 @@ body {
     color: #CCCCCC;
     text-align: center;
 }
+.table-responsive {
+    max-width: 100%;
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+}

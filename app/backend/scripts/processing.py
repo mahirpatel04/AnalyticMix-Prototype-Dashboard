@@ -48,7 +48,6 @@ print("Testing Score:", model.score(X_test, y_test))
 df['predictions'] = model.predict(X)
 
 fig = px.line(df, x='ordine_data', y = ['revenue', 'predictions'])
-
 fig = fig.to_html(full_html=False)
 
 
@@ -73,14 +72,14 @@ def process(df, independents, dependents, models):
 
     model = LinearRegression()
     model.fit(X_train, y_train)
-    
+      
     print("Training Score:", model.score(X_train, y_train))
     print("Testing Score:", model.score(X_test, y_test))
     
     
     df['predictions'] = model.predict(X)
-
-    fig = px.line(df, x=independents, y=dependents[0])
+    dependents.append('predictions')
+    fig = px.line(df, x='ordine_data', y=dependents)
 
     fig = fig.to_html(full_html=False)
 

@@ -32,21 +32,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-              {% if not user.is_authenticated %}
-              <!-- If not logged in show login/signup -->
-              <a class="nav-item nav-link" id="login" href="/login">Login</a>
-              <a class="nav-item nav-link" id="sign-up" href="/sign-up">Sign Up</a>
-              {% else %}
-                {% if user.user_type == 'admin' %}
-                <a class="nav-item nav-link" id="generate_analytics" href="/admin/choose_user">Generate Analytics</a>
-                <a class="nav-item nav-link" id="placeholder" href="/404">PlaceHolder(404)</a>
-                <a class="nav-item nav-link" id="placeholder" href="/404">PlaceHolder(404)</a>
+                {% if not user.is_authenticated %}
+                <!-- If not logged in show login/signup -->
+                <a class="nav-item nav-link" id="login" href="/login">Login</a>
+                <a class="nav-item nav-link" id="sign-up" href="/sign-up">Sign Up</a>
                 {% else %}
-                <a class="nav-item nav-link" id="upload" href="/upload">Upload</a>
-                <a class="nav-item nav-link" id="analytics" href="/analytics">Analytics</a>
+                  {% block navbar %}
+                    <a class="nav-item nav-link" id="upload" href="/upload">Upload</a>
+                    <a class="nav-item nav-link" id="analytics" href="/analytics">Analytics</a>
+                  {% endblock navbar %}
+                    <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
                 {% endif %}
-                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-              {% endif %}  
               </li>
             </ul>
         </div>

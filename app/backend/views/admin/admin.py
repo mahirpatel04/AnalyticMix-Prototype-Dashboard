@@ -14,7 +14,7 @@ PATH = 'admin/'
 @AdminBP.route('/home')
 @login_required
 def homepage():
-    path = PATH + 'admin_home.html'
+    path = 'admin_base.html'
     return render_template(path, user=current_user)
 
 
@@ -55,7 +55,7 @@ def choose_file():
     choices = [(file.id, file.fileName) for file in userObject.files]
     form = DropDown(choiceLabel='Choose File', choices=choices, placeholder=f'Files uploaded by {userObject.firstName}:')
     
-    return render_template(path, user=current_user, form=form)
+    return render_template(path, user=current_user, form=form, userID=userID)
 
 
 @AdminBP.route('/analyze_file', methods=['GET', 'POST'])
@@ -78,4 +78,20 @@ def analyze_file():
     form = CheckBox(label1='Choose Independent Variables', label2='Choose Dependent Variables', label3='Choose Models to Run',
                     choices1=choices, choices2=choices, choices3=models)
 
-    return render_template(path, user=current_user, form=form)
+    return render_template(path, user=current_user, form=form, userID=userID, fileID=fileID)
+
+@AdminBP.route('/view_data', methods=['GET', 'POST'])
+@login_required
+def view_data():
+    userID = request.args.get('userID')
+    fileID = request.args.get('fileID')
+    
+    # Fetch the file data from the database
+    fileObject = CSV.query.filter_by(userID=userID, id=fileID).first()
+    df = convertBinaryFileToDataFrame(fileObject.data)
+    
+    # Convert the DataFrame to HTML
+    data_html = df.to_html(classes='table table-striped table-bordered', index=False)
+    
+    path = PATH + 'view_data.html'
+    return render_template(path, user=current_user, data_html=data_html, userID=userID, fileID=fileID)
