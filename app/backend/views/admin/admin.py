@@ -91,7 +91,25 @@ def view_data():
     df = convertBinaryFileToDataFrame(fileObject.data)
     
     # Convert the DataFrame to HTML
-    data_html = df.to_html(classes='table table-striped table-bordered', index=False)
+    df_html = df.to_html(classes='table table-striped table-bordered', index=False)
     
     path = PATH + 'view_data.html'
-    return render_template(path, user=current_user, data_html=data_html, userID=userID, fileID=fileID)
+    return render_template(path, user=current_user, data_html=df_html, userID=userID, fileID=fileID)
+
+
+@AdminBP.route('/view_corr', methods=['GET', 'POST'])
+@login_required
+def view_corr():
+    userID = request.args.get('userID')
+    fileID = request.args.get('fileID')
+    
+    # Fetch the file data from the database
+    fileObject = CSV.query.filter_by(userID=userID, id=fileID).first()
+    df = convertBinaryFileToDataFrame(fileObject.data)
+    
+    # Convert the DataFrame to HTML
+    newDf = df.drop(columns='ordine_data')
+    correlationTable = newDf.corr()
+    corr_html = correlationTable.to_html(classes='table table-striped table-bordered')
+    path = PATH + 'view_corr.html'
+    return render_template(path, user=current_user, data_html=corr_html, userID=userID, fileID=fileID)

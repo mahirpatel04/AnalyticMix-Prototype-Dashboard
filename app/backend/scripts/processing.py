@@ -21,8 +21,7 @@ fig.update_xaxes(range=[start_date, end_date])
 
 
 df_trimmed = df.drop(columns=['ordine_data'])
-df_trimmed.corr()
-
+x = df_trimmed.corr()
 
 fig1 = px.scatter(df, x=['google_performance_max_spent'], y='revenue')
 fig2 = px.scatter(df, x=['Sconti'], y='revenue')

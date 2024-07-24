@@ -13,7 +13,7 @@
 {% if userID and fileID %}
 <a class="nav-item nav-link" href="/admin/choose_user">New User</a>
 <a class="nav-item nav-link" href="/admin/view_data?userID={{ userID }}&fileID={{ fileID }}">View Data</a>
-<a class="nav-item nav-link" href="/404">Correlations</a>
+<a class="nav-item nav-link" href="/admin/view_corr?userID={{ userID }}&fileID={{ fileID }}">Correlations</a>
 <a class="nav-item nav-link" href="/admin/analyze_file?userID={{ userID }}&file={{ fileID }}">Build Model</a>
 {% else %}
 <a class="nav-item nav-link" href="/admin/choose_user">Generate Analytics</a>
