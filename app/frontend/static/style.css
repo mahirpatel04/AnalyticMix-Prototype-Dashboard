@@ -232,3 +232,27 @@ body {
 table {
     width: 100%;
 }
+.choices-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create three equal columns */
+    gap: 20px; /* Add space between the columns */
+}
+
+.choice-column {
+    padding: 10px; /* Add padding inside each column */
+    box-sizing: border-box; /* Ensure padding does not affect the width */
+}
+
+@media (max-width: 768px) {
+    .choices-row {
+        grid-template-columns: 1fr; /* Stack columns vertically on smaller screens */
+    }
+
+    .choice-column {
+        margin-bottom: 20px; /* Add space between stacked columns */
+    }
+
+    .choice-column:last-child {
+        margin-bottom: 0;
+    }
+}
