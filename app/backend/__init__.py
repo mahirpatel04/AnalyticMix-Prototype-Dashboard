@@ -37,7 +37,7 @@ def create_app():
             db.session.commit()
             pass
     login_manager = LoginManager()
-    login_manager.login_view = 'pages.auth.auth.login'
+    login_manager.login_view = 'AuthBP.login'
     login_manager.login_message = ''
     login_manager.init_app(app)
     
