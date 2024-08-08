@@ -7,21 +7,22 @@ from ..forms.forms import DropDown, CheckBox
 from ...scripts.processing import getColumns, process, convertBinaryFileToDataFrame
 from sklearn.linear_model import LinearRegression
 
+
+
 AdminBP = Blueprint('AdminBP', __name__, url_prefix='/admin')
-PATH = 'admin/'
 
-
+# Admin Homepage
 @AdminBP.route('/home')
 @login_required
 def homepage():
-    path = 'admin_base.html'
+    path = 'admin/admin_base.html'
     return render_template(path, user=current_user)
 
-
+# Choose User
 @AdminBP.route('/choose_user', methods=['GET', 'POST'])
 @login_required
 def choose_user():
-    path = PATH + 'choose_user.html'
+    path = 'admin/choose_user.html'
     if request.method == 'POST':
         selected_user_id = request.form.get('choice')
         if selected_user_id == '' or selected_user_id == None:
@@ -40,7 +41,7 @@ def choose_user():
 @AdminBP.route('/choose_file', methods=['GET', 'POST'])
 @login_required
 def choose_file():
-    path = PATH + 'choose_file.html'
+    path = 'admin/choose_file.html'
 
     userID = request.args.get('user')
     userObject = User.query.filter_by(id=userID).first()
@@ -61,7 +62,7 @@ def choose_file():
 @AdminBP.route('/analyze_file', methods=['GET', 'POST'])
 @login_required
 def analyze_file():
-    path = PATH + 'analyze_file.html'    
+    path = 'admin/analyze_file.html'    
     userID = request.args.get('userID')
     fileID = request.args.get('file')
     fileObject = CSV.query.filter_by(userID=userID, id=fileID).first()
@@ -93,7 +94,7 @@ def view_data():
     # Convert the DataFrame to HTML
     df_html = df.to_html(classes='table table-striped table-bordered', index=False)
     
-    path = PATH + 'view_data.html'
+    path = 'admin/view_data.html'
     return render_template(path, user=current_user, data_html=df_html, userID=userID, fileID=fileID)
 
 
@@ -111,5 +112,5 @@ def view_corr():
     newDf = df.drop(columns='ordine_data')
     correlationTable = newDf.corr()
     corr_html = correlationTable.to_html(classes='table table-striped table-bordered')
-    path = PATH + 'view_corr.html'
+    path = 'admin/view_corr.html'
     return render_template(path, user=current_user, data_html=corr_html, userID=userID, fileID=fileID)

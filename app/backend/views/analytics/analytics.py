@@ -12,7 +12,6 @@ PATH = 'analytics/'
 @login_required
 def analytics_page():
     path = PATH + 'analytics.html'
-    path = PATH + 'analytics.html'
     form = DropDown(fileLabel='Pick a file to analyze', choiceLabel='Choice', choices=['1', '1'])
     file = None
 
