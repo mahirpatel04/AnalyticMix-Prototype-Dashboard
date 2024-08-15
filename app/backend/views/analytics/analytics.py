@@ -18,6 +18,6 @@ def analytics_page():
 
     if request.method == 'POST':
         file = form.choice.data
-        return render_template(path, fig=fig, user=current_user, file=file, form=form)
+        return render_template(path, fig='Hello', user=current_user, file=file, form=form)
     
-    return render_template(path, fig=fig, user=current_user, file=file, form=form)
+    return render_template(path, fig='Hello', user=current_user, file=file, form=form)
