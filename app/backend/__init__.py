@@ -11,7 +11,8 @@ def create_app():
     app = Flask(__name__)
     app.template_folder = "../frontend/templates"
     app.static_folder = "../frontend/static"
-    app.config['SECRET_KEY'] = 'awe9ipurhfadakcjvadfjhkasdfsdljfw0984520493235oiia8sdlakjsr'
+    # This isn't a production application so I have left the secret visible here. Realistically you would (and probably should) use environment variables to do this!
+    app.config['SECRET_KEY'] = 'any_random_string_works_here'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     
     db.init_app(app)
